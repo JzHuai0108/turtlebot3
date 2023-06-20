@@ -3,7 +3,12 @@
   <arg name="scan_topic"     default="scan"/>
   <arg name="initial_pose_x" default="0.0"/>
   <arg name="initial_pose_y" default="0.0"/>
-  <arg name="initial_pose_a" default="0.0"/>
+  <!-- Initial pose angle in radians. initial pose is map_frame_T_base_frame.
+    If the map is created by cartographer, its initial world frame is often aligned to the laser frame.
+    Then, map_T_base will be close to laser_T_base. The yaw angle can be quickly checked at
+    https://www.andre-gaschler.com/rotationconverter/
+  -->
+  <arg name="initial_pose_a" default="3.14159"/>
 
   <!-- AMCL -->
   <node pkg="amcl" type="amcl" name="amcl">
