@@ -9,31 +9,48 @@
     https://www.andre-gaschler.com/rotationconverter/
   -->
   <arg name="initial_pose_a" default="3.14159"/>
+  <arg name="initial_cov_xx" default="0.25"/>
+  <arg name="initial_cov_yy" default="0.25"/>
+  <arg name="initial_cov_aa" default="0.0685"/>
+  <arg name="map_file" default="$(find turtlebot3_navigation)/maps/map.yaml"/>
+  <arg name="load_mapfile" default="false" />
+  <arg name="amcl_rviz" default="false"/>
+
+  <group if="$(arg load_mapfile)">
+    <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+  </group>
+
+  <group if="$(arg amcl_rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find turtlebot3_navigation)/rviz/turtlebot3_navigation.rviz"/>
+  </group>
 
   <!-- AMCL -->
   <node pkg="amcl" type="amcl" name="amcl">
-
-    <param name="min_particles"             value="500"/>
+    <param name="min_particles"             value="300"/>
     <param name="max_particles"             value="3000"/>
     <param name="kld_err"                   value="0.02"/>
-    <param name="update_min_d"              value="0.20"/>
-    <param name="update_min_a"              value="0.20"/>
+    <param name="update_min_d"              value="0.10"/>
+    <param name="update_min_a"              value="0.15"/>
     <param name="resample_interval"         value="1"/>
-    <param name="transform_tolerance"       value="0.5"/>
+    <param name="transform_tolerance"       value="0.15"/>
     <param name="recovery_alpha_slow"       value="0.00"/>
     <param name="recovery_alpha_fast"       value="0.00"/>
     <param name="initial_pose_x"            value="$(arg initial_pose_x)"/>
     <param name="initial_pose_y"            value="$(arg initial_pose_y)"/>
     <param name="initial_pose_a"            value="$(arg initial_pose_a)"/>
-    <param name="gui_publish_rate"          value="50.0"/>
+    <param name="initial_cov_xx"            value="$(arg initial_cov_xx)"/>
+    <param name="initial_cov_yy"            value="$(arg initial_cov_yy)"/>
+    <param name="initial_cov_aa"            value="$(arg initial_cov_aa)"/>
+    <param name="gui_publish_rate"          value="20.0"/>
 
     <remap from="scan"                      to="$(arg scan_topic)"/>
-    <param name="laser_max_range"           value="3.5"/>
-    <param name="laser_max_beams"           value="180"/>
-    <param name="laser_z_hit"               value="0.5"/>
+    <param name="laser_max_range"           value="10.5"/>
+    <param name="laser_max_beams"           value="200"/>
+    <param name="laser_z_hit"               value="0.95"/>
     <param name="laser_z_short"             value="0.05"/>
     <param name="laser_z_max"               value="0.05"/>
-    <param name="laser_z_rand"              value="0.5"/>
+    <param name="laser_z_rand"              value="0.05"/>
     <param name="laser_sigma_hit"           value="0.2"/>
     <param name="laser_lambda_short"        value="0.1"/>
     <param name="laser_likelihood_max_dist" value="2.0"/>
