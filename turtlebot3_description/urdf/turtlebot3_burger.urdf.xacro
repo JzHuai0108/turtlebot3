@@ -162,4 +162,11 @@
     </inertial>
   </link>
 
+  <joint name="laser_joint" type="fixed">
+    <parent link="base_scan"/>
+    <child link="laser"/>
+    <origin xyz="0 0 0" rpy="0 0 3.14159"/>
+  </joint>
+
+  <link name="laser"/>
 </robot>

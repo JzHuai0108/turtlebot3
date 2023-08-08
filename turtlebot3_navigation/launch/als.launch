@@ -1,0 +1,35 @@
+<launch>
+    <arg name="node_name" default="mcl" />
+    <arg name="open_rviz" default="false" />
+
+    <arg name="initial_pose_x" default="-1.0" />
+    <arg name="initial_pose_y" default="1.5" />
+    <arg name="initial_pose_yaw" default="150" />
+    <arg name="initial_noise_x" default="1.2" />
+    <arg name="initial_noise_y" default="1.2" />
+    <arg name="initial_noise_yaw" default="1.0" />
+    <arg name="transform_tolerance" default="0.25" />
+    <arg name="use_augmented_mcl" default="true" />
+    <arg name="z_hit" default="0.95" />
+    <arg name="z_max" default="0.01" />
+    <arg name="z_rand" default="0.04" />
+
+    <include file="$(find als_ros)/launch/mcl.launch">
+        <arg name="use_gl_pose_sampler" value="false" />
+        <arg name="map_yaml_file" value="" />
+        <arg name="open_rviz" value="$(arg open_rviz)" />
+        <arg name="initial_pose_x" default="$(arg initial_pose_x)" />
+        <arg name="initial_pose_y" default="$(arg initial_pose_y)" />
+        <arg name="initial_pose_yaw" default="$(arg initial_pose_yaw)" />
+        <arg name="initial_noise_x" default="$(arg initial_noise_x)" />
+        <arg name="initial_noise_y" default="$(arg initial_noise_y)" />
+        <arg name="initial_noise_yaw" default="$(arg initial_noise_yaw)" />
+        <arg name="transform_tolerance" default="$(arg transform_tolerance)" />
+        <arg name="use_augmented_mcl" default="$(arg use_augmented_mcl)" />
+        <arg name="z_hit" default="$(arg z_hit)" />
+        <arg name="z_max" default="$(arg z_max)" />
+        <arg name="z_rand" default="$(arg z_rand)" />
+    </include>
+
+</launch>
+
