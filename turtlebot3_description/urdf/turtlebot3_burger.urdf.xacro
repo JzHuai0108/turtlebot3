@@ -164,9 +164,9 @@
 
   <joint name="laser_joint" type="fixed">
     <parent link="base_scan"/>
-    <child link="laser"/>
-    <origin xyz="0 0 0" rpy="0 0 3.14159"/>
+    <child link="livox_frame"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
 
-  <link name="laser"/>
+  <link name="livox_frame"/>
 </robot>

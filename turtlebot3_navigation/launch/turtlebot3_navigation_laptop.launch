@@ -3,8 +3,9 @@
   <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
   <arg name="map_file" default="$(find turtlebot3_navigation)/maps/map.yaml"/>
   <arg name="open_rviz" default="true"/>
+  <arg name="pcdmap" default="$(find turtlebot3_navigation)/maps/map.pcd"/>
   <arg name="move_forward_only" default="false"/>
-  <arg name="use_amcl" default="true" />
+  <arg name="publish_freq" default="10"/>
 
   <!-- Turtlebot3 -->
   <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch">
@@ -14,17 +15,13 @@
   <!-- Map server -->
   <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
 
-  <!-- AMCL -->
-  <group if="$(arg use_amcl)">
-    <include file="$(find turtlebot3_navigation)/launch/amcl.launch"/>
-  </group>
-  <group unless="$(arg use_amcl)">
-    <include file="$(find turtlebot3_navigation)/launch/fastlio_mid360.launch">
-      <arg name="bagfile" default="$(arg bagfile)" />
-      <arg name="playbag" default="$(arg playbag)" />
+  <include file="$(find fast_lio)/launch/loc_mid360.launch">
       <arg name="pcdmap" default="$(arg pcdmap)" />
-    </include>
-  </group>
+  </include>
+
+  <include file="$(find livox_ros_driver2)/launch_ROS1/rviz_MID360.launch">
+      <arg name="publish_freq" default="$(arg publish_freq)" />
+  </include>
 
   <!-- move_base -->
   <include file="$(find turtlebot3_navigation)/launch/move_base.launch">
