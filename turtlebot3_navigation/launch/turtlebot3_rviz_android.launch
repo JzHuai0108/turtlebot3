@@ -1,0 +1,9 @@
+<launch>
+  <node launch-prefix="nice" pkg="rviz" type="rviz" name="fastlio_rviz" args="-d $(find fast_lio)/rviz_cfg/loam_livox.rviz" />
+
+  <node pkg="rviz" type="rviz" name="movebase_rviz" required="true" args="-d $(find turtlebot3_navigation)/rviz/turtlebot3_navigation.rviz"/>
+
+  <!-- <node pkg="rqt_tf_tree" type="rqt_tf_tree" name="rqt_tf_tree" /> -->
+
+  <!-- <node pkg="rqt_graph" type="rqt_graph" name="rqt_graph" /> -->
+</launch>
